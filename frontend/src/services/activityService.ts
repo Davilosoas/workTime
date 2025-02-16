@@ -1,28 +1,16 @@
-import axios from "axios";
-
-const API_URL = "http://localhost:5000/api/activities";
+import API from "./apiService.ts";
 
 export const addActivity = async (
   name: string,
   startTime: string,
   endTime: string
 ) => {
-  const token = localStorage.getItem("token");
-  if (!token) {
-    console.error("❌ Nenhum token encontrado no localStorage!");
-    return;
-  }
-
   try {
-    const response = await axios.post(
-      API_URL,
-      { name, startTime, endTime },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await API.post("/activities", {
+      name,
+      startTime,
+      endTime,
+    });
     return response.data;
   } catch (error: any) {
     console.error("❌ Erro ao adicionar atividade:", error.response);
@@ -31,13 +19,8 @@ export const addActivity = async (
 };
 
 export const getActivities = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) return;
-
   try {
-    const response = await axios.get(API_URL, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await API.get("/activities");
     return response.data;
   } catch (error: any) {
     console.error("❌ Erro ao buscar atividades:", error.response);
@@ -46,13 +29,8 @@ export const getActivities = async () => {
 };
 
 export const getReport = async () => {
-  const token = localStorage.getItem("token");
-  if (!token) return;
-
   try {
-    const response = await axios.get(`${API_URL}/report`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await API.get("/activities/report");
     return response.data;
   } catch (error: any) {
     console.error("❌ Erro ao obter relatório:", error.response);
@@ -61,9 +39,11 @@ export const getReport = async () => {
 };
 
 export const deleteActivity = async (id: number) => {
-  const token = localStorage.getItem("token");
-  const response = await axios.delete(`${API_URL}/${id}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return response.data;
+  try {
+    const response = await API.delete(`/activities/${id}`);
+    return response.data;
+  } catch (error: any) {
+    console.error("❌ Erro ao deletar atividade:", error.response);
+    throw error;
+  }
 };
