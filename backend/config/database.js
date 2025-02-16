@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // ✅ Carrega variáveis de ambiente
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -21,9 +21,14 @@ const sequelize = new Sequelize(
   }
 );
 
-sequelize
-  .authenticate()
-  .then(() => console.log("✅ Conectado ao banco de dados na Render!"))
-  .catch((err) => console.error("❌ Erro ao conectar ao banco de dados:", err));
+const connectDB = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("✅ Conectado ao banco de dados na Render!");
+  } catch (error) {
+    console.error("❌ Erro ao conectar ao banco de dados:", error);
+    process.exit(1);
+  }
+};
 
-export default sequelize;
+export { sequelize, connectDB };
