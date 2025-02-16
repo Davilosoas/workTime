@@ -9,18 +9,21 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
     dialect: "postgres",
     logging: false,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    },
   }
 );
 
-const connectDB = async () => {
-  try {
-    await sequelize.authenticate();
-  } catch (error) {
-    console.error("❌ Erro ao conectar ao banco de dados:", error);
-    process.exit(1);
-  }
-};
+sequelize
+  .authenticate()
+  .then(() => console.log("✅ Conectado ao banco de dados na Render!"))
+  .catch((err) => console.error("❌ Erro ao conectar ao banco de dados:", err));
 
-export { sequelize, connectDB };
+export default sequelize;
