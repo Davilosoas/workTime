@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/database.js";
 import userRoutes from "./routes/userRoutes.js";
 import activityRoutes from "./routes/activityRoutes.js";
+import { sequelize } from "./config/database.js";
 
 dotenv.config();
 connectDB();
@@ -21,8 +22,6 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Servidor rodando na porta ${PORT}`));
-
-import { sequelize } from "./config/database.js";
 
 sequelize
   .sync({ force: false })
