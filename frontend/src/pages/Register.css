@@ -1,0 +1,11 @@
+.register-title {
+    transition: all 0.3s ease;
+}
+
+.register-title:hover {
+    color: #ff69b4 !important;
+    font-size: 38px !important;
+    transform: scale(1.1) rotate(2deg);
+    text-shadow: 2px 2px 4px rgba(255,105,180,0.3);
+    letter-spacing: 2px;
+} 

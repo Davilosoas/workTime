@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "target": "ES6",
+    "module": "ESNext",
+    "lib": ["DOM", "ES6", "ESNext"],
+    "strict": true,
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "baseUrl": "./src",
+    "paths": {
+      "@hooks/*": ["hooks/*"]
+    },
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

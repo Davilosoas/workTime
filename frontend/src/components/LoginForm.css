@@ -1,0 +1,17 @@
+.login-input {
+    transition: border-color 0.2s ease;
+}
+
+.login-input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.login-button {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.login-button:hover {
+    background-color: #45a049;
+} 
